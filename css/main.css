@@ -1,0 +1,25 @@
+#output {
+    width:50%;
+    height: 200px;
+    max-height: 200px;
+    overflow: auto;
+    border: 1px solid #c0c0c0;
+    margin: 0 auto;
+    padding-left: 10px;
+}
+
+#commands {
+    display: block;
+    width: 50%;
+    margin: 10px auto;
+}
+
+#current_location {
+    display: block;
+    width: 50%;
+    margin: 10px auto;
+}
+
+.active {
+    color: red;
+}
