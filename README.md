@@ -4,7 +4,6 @@ Z-Text
 Text based adventure game set in the zombie apocalypse
 
 # Development Roadmap
-=======
 
 ## Phase 1 (Proof of Concept / Unplayable Game)
 - define basic commands
