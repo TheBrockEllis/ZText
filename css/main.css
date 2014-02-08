@@ -1,3 +1,10 @@
+body {
+    width: 800px;
+    margin: 0 auto;
+    max-width: 800px;
+    
+}
+
 #output {
     width:50%;
     height: 200px;
@@ -14,8 +21,7 @@
     margin: 10px auto;
 }
 
-#current_location {
-    display: block;
+#location {
     width: 50%;
     margin: 10px auto;
 }

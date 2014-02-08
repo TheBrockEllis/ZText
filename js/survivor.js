@@ -1,4 +1,5 @@
-var self = {
+var survivor = {
     location: "garage",
     inventory: [],
+    weapon: ""
 }

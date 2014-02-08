@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
+    updateLocation("garage");
+    clearCommands();
     
-
     var commands = ["grab", "move", "set", "use", "combine", "look", "examine"];
         
     $("#commands").keypress(function(e) {
@@ -63,23 +64,59 @@ $(document).ready(function(){
     });
     
     function result(text){
-        $("#output p").removeClass("active");
-        $("#output").append("<p class='active'>"+text+".</p>");   
+        var elm = $('#output');        
+        elm.children("p").removeClass("active");
+        elm.append("<p class='active'>"+text+"</p>");   
+        elm.scrollTop(elm.prop("scrollHeight"));
+    }
+    
+    function updateLocation(location){
+        survivor.location = location;
+        var enter = house[survivor.location].on_enter;
+        console.log(enter);
+        result(enter);
+        $("#location span").html(survivor.location);
+    }
+    
+    function clearCommands(){
+        $("#commands").val("");
     }
     
     function grab(command){
         //what item are you grabbing?
         var item = command[1];
-        
-        //what location are you in?
-        var current_location = self.location;
-        
-        //check to see if you can do that
-        if ( house[current_location].objects[item] ) {
+                
+        //check to see if you can do that        
+        if ( $.inArray(item, house[survivor.location].items) !== -1 ){
             //the item is there
-            result("You grabbed " +item+"!");
+            
+            //find the index of the item in the room
+            var room_index = house[survivor.location].items.indexOf(item);
+            house[survivor.location].items.splice(room_index, 1);
+            
+            //add item to your inventory
+            survivor.inventory.push = item;
+            
+            result("You've added " +item+" to your inventory!");
         }else{
-            result("That item isn't around here...");
+            result("That item isn't in this room!");
+        }
+    }//end grab
+    
+    function move(command){
+        //where are you trying to go
+        var destination = command[2];
+        //console.log("Destination: " + destination);
+        //console.log(house[survivor.location].nextTo[0]);
+        
+        //can you move there
+        if ( $.inArray(destination, house[survivor.location].nextTo) !== -1 ){
+            //yes you can move!
+            updateLocation(destination);
+            
+            result("You moved to the " + destination);
+        }else{
+            result("You cannot move to that room directly from the room you're in");
         }
     }
 

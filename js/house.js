@@ -5,26 +5,16 @@ var house = {
         description: "Your kitchen is untidy and cramped",
         visits: 0,
         on_enter: function() {
-            if(!locations.kitchen.visits++) {
+            if(house.kitchen.visits === 0) {
                 alert("This is your first time in the kitchen!");
             };
         },
+        nextTo: ["garage", "bathroom", "bedroom"],
         defense: {
             name: "sliding door",
-            object: ""
+            item: ""
         },
-        objects: {
-            "knife": {
-                description: "An old bread knife, probably seen better days",
-                type: "attack",
-                score: 7
-            },
-            "wine bottle": {
-                description: "A 1988 Pino Grigio. A fine year for wine.",
-                type: "attack",
-                score: 3
-            }
-        }
+        items: ["wine bottle", "knife"]
     },
     
     garage:{
@@ -32,26 +22,16 @@ var house = {
         description: "Filled with old basketballs and oil cans",
         visits: 0,
         on_enter: function() {
-            if(!locations.kitchen.visits++) {
-                alert("This is your first time in the garage!");
-            };
+            if(!house.garage.visits++) {
+                return("This is your first time in the garage!");
+            }
         },
+        nextTo: ["kitchen"],
         defense: {
             name: "garage door",
-            object: ""
+            item: ""
         },
-        objects: {
-            "chainsaw": {
-                description: "A very rusty chainsaw. Has just a little gas left...",
-                type: "attack",
-                score: 12
-            },
-            "hedge clippers": {
-                description: "Used to prune bushes, and zombies.",
-                type: "attack",
-                score: 5
-            }
-        }
+        items: ["chainsaw", "fireworks", "hedge clippers"]
     },
     
     bedroom:{
@@ -59,31 +39,33 @@ var house = {
         description: "The bed is thrown across the room and the vanity mirror reflects light on the ceiling",
         visits: 0,
         on_enter: function() {
-            if(!locations.kitchen.visits++) {
+            if(!house.bedroom.visits++) {
                 alert("This is your first time in the bedroom!");
             };
         },
+        nextTo: ["kitchen", "bathroom"],
         defense: {
             name: "window",
-            object: ""
+            item: ""
         },
-        objects: {
-            "marbles": {
-                description: "A sack of marbles that an old man would love to play",
-                type: "both",
-                score: 3
-            },
-            "pocket knife": {
-                description: "Original swiss army ",
-                type: "attack",
-                score: 3
-            },
-            "gym socks": {
-                description: "Old and smelly",
-                type: "both",
-                score: 1
-            }
-        }
+        items: ["gym sock", "marbles", "pocket knife"]
+    },
+    
+    bathroom:{
+        name: "Bathroom",
+        description: "The medicine cabinet has been torn off the shelves and some of the drawers are still open",
+        visits: 0,
+        on_enter: function() {
+            if(!house.bathroom.visits++) {
+                alert("This is your first time in the bedroom!");
+            };
+        },
+        nextTo: ["kitchen", "bedroom"],
+        defense: {
+            name: "skylight",
+            item: ""
+        },
+        items: ["toilet seat", "plunger", "curling iron"]
     }
 
 };
