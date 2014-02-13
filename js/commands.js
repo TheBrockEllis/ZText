@@ -31,22 +31,27 @@ $(document).ready(function(){
                         move(command_array);
                         break;
                     
+                    //BROCK
                     case "set":
                         set(command_array);
                         break;
                     
+                    //WILL
                     case "use":
                         use(command_array);
                         break;
                     
+                    //PHASE 2
                     case "combine":
                         combine(command_array);
                         break;
                     
+                    //RYAN
                     case "look":
                         look(command_array); 
                         break;
                     
+                    //BRAD
                     case "examine":
                         examine(command_array);
                         break;
