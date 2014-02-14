@@ -4,7 +4,7 @@ $(document).ready(function(){
     clearCommands();
     
     var commands = ["grab", "move", "set", "use", "combine", "look", "examine"];
-    var description =(house[survivor.location].description);
+   
     $("#commands").keypress(function(e) {
         
         //only do something when they press enter
@@ -146,8 +146,9 @@ $(document).ready(function(){
             //yes you can move!
           //  updateLocationdescription(details);
             //   alert("LOOK:" + look)
+        
         if(house[survivor.location].description) {
-            
+            var description = house[survivor.location].description;
             result(description);
         }else{
             result("You messed up");
