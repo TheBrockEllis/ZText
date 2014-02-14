@@ -4,7 +4,7 @@ $(document).ready(function(){
     clearCommands();
     
     var commands = ["grab", "move", "set", "use", "combine", "look", "examine"];
-        
+    var description =(house[survivor.location].description);
     $("#commands").keypress(function(e) {
         
         //only do something when they press enter
@@ -82,14 +82,14 @@ $(document).ready(function(){
         result(enter);
         $("#location span").html(survivor.location);
     }
-    function updateLocationdescription(description) {
-        alert("description:" +description);
+    /*function updateLocationdescription(description) {
+        alert("description:" + description);
         house.description = descripton;
         var enter = house.description.items;
         console.log(enter);
         result(enter);
         $("#descripton span").html(house.description);
-    }
+    }*/
     
     
     function clearCommands(){
@@ -136,19 +136,21 @@ $(document).ready(function(){
 
     function look(command){
         //look around room
-        var details = command[6];
+        //var details = command[6];
      
         //console.log("Look: " + look);
         //console.log(house[survivor.location].nextTo[0]);
         
         //Look around the room ...not getting here
-        if ( $.inArray(details, house.description) !== -1 ){
+        //if ( $.inArray(details, house.description) !== -1 ){
             //yes you can move!
-            updateLocationdescription(details);
-               alert("LOOK:" + look)
-            result("You look around the room and see... " + details);
+          //  updateLocationdescription(details);
+            //   alert("LOOK:" + look)
+        if(house[survivor.location].description) {
+            
+            result(description);
         }else{
-            result("You cannot move to that room directly from the room you're in");
+            result("You messed up");
         }
     }
 });
