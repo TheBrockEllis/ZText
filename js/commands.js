@@ -82,6 +82,15 @@ $(document).ready(function(){
         result(enter);
         $("#location span").html(survivor.location);
     }
+    function updateLocationdescription(description) {
+        alert("description:" +description);
+        house.description = descripton;
+        var enter = house.description.items;
+        console.log(enter);
+        result(enter);
+        $("#descripton span").html(house.description);
+    }
+    
     
     function clearCommands(){
         $("#commands").val("");
@@ -125,4 +134,21 @@ $(document).ready(function(){
         }
     }
 
+    function look(command){
+        //look around room
+        var details = command[6];
+     
+        //console.log("Look: " + look);
+        //console.log(house[survivor.location].nextTo[0]);
+        
+        //Look around the room ...not getting here
+        if ( $.inArray(details, house.description) !== -1 ){
+            //yes you can move!
+            updateLocationdescription(details);
+               alert("LOOK:" + look)
+            result("You look around the room and see... " + details);
+        }else{
+            result("You cannot move to that room directly from the room you're in");
+        }
+    }
 });
