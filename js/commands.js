@@ -35,7 +35,7 @@ $(document).ready(function(){
                         move(command_array);
                         break;
                     
-                    //BROCK
+                    //BROCK - done!
                     case "set":
                         set(command_array);
                         break;

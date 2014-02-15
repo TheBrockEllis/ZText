@@ -1,5 +1,6 @@
 var survivor = {
     location: "garage",
     inventory: [],
-    weapon: ""
+    hand1: "",
+    hand2: ""
 }
