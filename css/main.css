@@ -5,6 +5,12 @@ body {
     
 }
 
+#attack {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+}
+
 #output {
     width:50%;
     height: 200px;
@@ -21,8 +27,24 @@ body {
     margin: 10px auto;
 }
 
+#inventory {
+    float: left;
+    text-align: center;
+    width: 33%;
+    margin: 10px auto;
+}
+
+#help {
+    float: left;
+    width: 33%;
+    text-align: center;
+    margin: 10px auto;
+}
+
 #location {
-    width: 50%;
+    float: left;
+    width: 33%;
+    text-align: center;
     margin: 10px auto;
 }
 

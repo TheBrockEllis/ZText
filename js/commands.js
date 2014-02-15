@@ -2,6 +2,9 @@ $(document).ready(function(){
 
     updateLocation("garage");
     clearCommands();
+
+    //Phase 3 - setTimeout() for attack
+    $("#attack").click( attack );
     
     var commands = ["grab", "move", "set", "use", "combine", "look", "examine"];
    
@@ -23,10 +26,11 @@ $(document).ready(function(){
             
                 //which command did they issue?
                 switch (command_array[0]) {
-                    case "grab":
+                    case "grab": 
                         grab(command_array);
                         break;
                     
+                    //done 
                     case "move":
                         move(command_array);
                         break;
@@ -46,7 +50,7 @@ $(document).ready(function(){
                         combine(command_array);
                         break;
                     
-                    //RYAN
+                    //RYAN - done!
                     case "look":
                         look(command_array); 
                         break;
@@ -77,20 +81,36 @@ $(document).ready(function(){
     
     function updateLocation(location){
         survivor.location = location;
-        var enter = house[survivor.location].on_enter;
-        console.log(enter);
-        result(enter);
+        var on_enter = house[survivor.location].on_enter();
+        result(on_enter);
+        //var enter = house[survivor.location].on_enter;
+        //console.log(enter);
         $("#location span").html(survivor.location);
     }
-    /*function updateLocationdescription(description) {
-        alert("description:" + description);
-        house.description = descripton;
-        var enter = house.description.items;
-        console.log(enter);
-        result(enter);
-        $("#descripton span").html(house.description);
-    }*/
     
+    function updateInventory(item){
+        if ( $.inArray(item, survivor.inventory) !== -1){
+            //the item is already in your inventory and needs to be removed
+            
+            //find the index of the item in your inventory
+            var inventory_index = survivor.inventory.indexOf(item);
+            
+            //cut that item out of that array
+            survivor.inventory.splice(inventory_index, 1);
+        }else{
+            //the item is not in your inventory and needs to be added
+            survivor.inventory.push(item);
+        }
+        
+        //loop through all items in inventory and place them on index page
+        var li = "";
+        $.each(survivor.inventory, function(index, value){
+            li += "<li>"+value+"</li>";            
+        });
+        
+        $("#inventory ul").empty().append(li);
+
+    }  
     
     function clearCommands(){
         $("#commands").val("");
@@ -100,58 +120,82 @@ $(document).ready(function(){
         //what item are you grabbing?
         var item = command[1];
                 
-        //check to see if you can do that        
+        //is the item you want to grab in the room you're in
         if ( $.inArray(item, house[survivor.location].items) !== -1 ){
-            //the item is there
-            
+            //YES! The item is there
+                
             //find the index of the item in the room
             var room_index = house[survivor.location].items.indexOf(item);
             house[survivor.location].items.splice(room_index, 1);
             
             //add item to your inventory
-            survivor.inventory.push = item;
+            updateInventory(item);
             
-            result("You've added " +item+" to your inventory!");
+            result("You add " +item+" to your inventory");
+        }else if(item === house[survivor.location].defense.item){
+            //the item was in the defensive position
+            
+            //add defensive item to your inventory
+            updateInventory(item);            
+
+            //remove it from the defensive position
+            house[survivor.location].defense.item = "";
+            
+            result("You remove the "+item+" from the "+house[survivor.location].defense.name);
         }else{
             result("That item isn't in this room!");
         }
     }//end grab
     
+    function set(command){
+        //what item are you trying to set down
+        var item = command[1];
+                
+        //do you have that item in your inventory
+        if ( $.inArray(item, survivor.inventory) !== -1 ) {
+            //yes you do!
+            
+            if (house[survivor.location].defense.item !== "") {
+                result("The " + house[survivor.location].defense.item + " is already next to the " + house[survivor.location].defense.name + "!");
+                return;            
+            }
+            
+            //remove item from inventory
+            updateInventory(item);
+        
+            //add that item to the defensive position
+            house[survivor.location].defense.item = item;
+            
+            result("You place " +item+" next to the " + house[survivor.location].defense.name +".");
+        }else{
+            result("You do not have that item in your inventory!");
+        }
+    }//end set
+    
     function move(command){
         //where are you trying to go
         var destination = command[2];
-        //console.log("Destination: " + destination);
-        //console.log(house[survivor.location].nextTo[0]);
         
         //can you move there
         if ( $.inArray(destination, house[survivor.location].nextTo) !== -1 ){
-            //yes you can move!
+            //yes you can move
+            result("You move to the " + destination);
             updateLocation(destination);
-            
-            result("You moved to the " + destination);
         }else{
             result("You cannot move to that room directly from the room you're in");
         }
-    }
+    }//end move
 
     function look(command){
-        //look around room
-        //var details = command[6];
-     
-        //console.log("Look: " + look);
-        //console.log(house[survivor.location].nextTo[0]);
-        
-        //Look around the room ...not getting here
-        //if ( $.inArray(details, house.description) !== -1 ){
-            //yes you can move!
-          //  updateLocationdescription(details);
-            //   alert("LOOK:" + look)
-        
+        //do we have a description for the room you're in?
         if(house[survivor.location].description) {
+            //yes we do have a description!
             var description = house[survivor.location].description;
+            
             result(description);
         }else{
-            result("You messed up");
+            result("You're eyes well up with tears as you realize you're about to die...");
         }
-    }
+    } //end look
+    
 });

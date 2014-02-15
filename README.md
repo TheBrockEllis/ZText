@@ -14,12 +14,15 @@ Text based adventure game set in the zombie apocalypse
 ## Phase 2 (Basic Game Mechanics)
 - create "alchemy" system to create new items
 - textual/story enhancements
+- basic attack / exit mechanisms
 
 ## Phase 3 (Unique Extras)
 - add timed attack
 - randomize item location
+- "last stand" scenario
 
 ## Phase 4 (Polish)
 - final look and feel
-- artwork and sound effects
+- comic-style artwork
+- sound effects
 

@@ -5,8 +5,8 @@ var house = {
         description: "Your kitchen is untidy and cramped",
         visits: 0,
         on_enter: function() {
-            if(house.kitchen.visits === 0) {
-                alert("This is your first time in the kitchen!");
+            if(!house.kitchen.visits++) {
+                return("The kitchen is completely ransacked. The stench of rotten food is overwhelming. You see some wine bottles on the floor, some broken and some still intact. There is a large knife stuck in the kitchen table.");
             };
         },
         nextTo: ["garage", "bathroom", "bedroom"],
@@ -23,7 +23,7 @@ var house = {
         visits: 0,
         on_enter: function() {
             if(!house.garage.visits++) {
-                return("This is your first time in the garage!");
+                return("You enter the house through the garage door, which is barely still on its hinges. There are some old hedge clippers hanging on the wall, some old fireworks in a box and a rusty chainsaw sitting on the floor. You can see the light of the kitchen through the partially opened door...");
             }
         },
         nextTo: ["kitchen"],
@@ -40,7 +40,7 @@ var house = {
         visits: 0,
         on_enter: function() {
             if(!house.bedroom.visits++) {
-                alert("This is your first time in the bedroom!");
+                return("There is a bed in the corner of the room. It was probably white once and maybe even pretty. There's a sack of <em>marbles</em> laying under the broken drawer. You can see the tip of a <em>pocket knife</em> poking out of a pair of pants on the floor. ");
             };
         },
         nextTo: ["kitchen", "bathroom"],

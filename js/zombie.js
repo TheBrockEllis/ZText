@@ -16,4 +16,8 @@ for(var i=0; i < zombies.length; i++){
     available_threat = available_threat - threat;
 }
 
+function attack(){
+    alert("ZOMBIES ATTACKED AND YOURE DEAD");
+}
+
 
