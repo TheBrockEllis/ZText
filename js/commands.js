@@ -188,11 +188,11 @@ $(document).ready(function(){
 
     function look(command){
         //do we have a description for the room you're in?
-        if(house[survivor.location].description) {
+        if(house[survivor.location].description+items) {
             //yes we do have a description!
             var description = house[survivor.location].description;
-            
-            result(description);
+            var items = house[survivor.location].items;
+            result(description+  items);
         }else{
             result("You're eyes well up with tears as you realize you're about to die...");
         }
