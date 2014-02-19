@@ -192,7 +192,7 @@ $(document).ready(function(){
             //yes we do have a description!
             var description = house[survivor.location].description;
             var items = house[survivor.location].items;
-            result(description+  items);
+            result(description+items);
         }else{
             result("You're eyes well up with tears as you realize you're about to die...");
         }
