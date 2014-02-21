@@ -6,6 +6,14 @@ $(document).ready(function(){
     //Phase 3 - setTimeout() for attack
     $("#attack").click( attack );
     
+    //simulate the enter key being pressed (for mobile devices mostly)
+    $("#enter").click(function(){
+        var e = jQuery.Event("keypress");
+        e.which = 13; // # Some key code value
+        e.keyCode = 13
+        $("#commands").trigger(e);
+    });
+  
     var commands = ["grab", "move", "set", "use", "combine", "look", "examine"];
    
     $("#commands").keypress(function(e) {
@@ -82,13 +90,20 @@ $(document).ready(function(){
     function updateLocation(location){
         survivor.location = location;
         var on_enter = house[survivor.location].on_enter();
-        result(on_enter);
+        if (on_enter) {
+            result(on_enter);
+        }
         //var enter = house[survivor.location].on_enter;
         //console.log(enter);
         $("#location span").html(survivor.location);
     }
     
     function updateInventory(item){
+        if (survivor.inventory.length >= 2) {
+            result("You are already carrying as much as you can handle!");
+            return;
+        }
+        
         if ( $.inArray(item, survivor.inventory) !== -1){
             //the item is already in your inventory and needs to be removed
             
@@ -109,6 +124,8 @@ $(document).ready(function(){
         });
         
         $("#inventory ul").empty().append(li);
+        
+        return true;
 
     }  
     
@@ -119,7 +136,12 @@ $(document).ready(function(){
     function grab(command){
         //what item are you grabbing?
         var item = command[1];
-                
+        
+        //does the item have more than one word?
+        if(command[2]) {
+            item +=  " " + command[2]; 
+        }
+        
         //is the item you want to grab in the room you're in
         if ( $.inArray(item, house[survivor.location].items) !== -1 ){
             //YES! The item is there
@@ -129,9 +151,7 @@ $(document).ready(function(){
             house[survivor.location].items.splice(room_index, 1);
             
             //add item to your inventory
-            updateInventory(item);
-            
-            result("You add " +item+" to your inventory");
+            if( updateInventory(item) ) result("You add " +item+" to your inventory");
         }else if(item === house[survivor.location].defense.item){
             //the item was in the defensive position
             
@@ -150,7 +170,12 @@ $(document).ready(function(){
     function set(command){
         //what item are you trying to set down
         var item = command[1];
-                
+        
+        //does the item have more than one word?
+        if(command[2]) {
+            item +=  " " + command[2]; 
+        }
+          
         //do you have that item in your inventory
         if ( $.inArray(item, survivor.inventory) !== -1 ) {
             //yes you do!

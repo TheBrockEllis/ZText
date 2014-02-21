@@ -12,7 +12,6 @@ var items = {
     "chainsaw": {
         description: "A very rusty chainsaw. Has just a little gas left...",
         type: "attack",
-        discovered: false,
         score: 12
     },
     "hedge clippers": {
@@ -23,7 +22,6 @@ var items = {
     "fireworks": {
         description: "Used to be for celebrating...",
         type: "attack",
-        discovered: false,
         score: 9
     },
     "marbles": {
@@ -41,4 +39,9 @@ var items = {
         type: "both",
         score: 1
     }
+}
+
+//we need to work on these combos...
+var combos = {
+    "fireworks": ""
 }
