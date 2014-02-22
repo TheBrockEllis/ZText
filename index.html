@@ -3,13 +3,16 @@
 <HEAD>
   <title>Z Text</title>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="vendor/flipclock/css/flipclock.css" />
+  <link rel="stylesheet" href="src/css/main.css" />
 </HEAD>
 <BODY>
-  <button id="attack">Attack [PHASE3-Replace with countdown]</button>
-  
+  <div id="timer"></div>
+
   <h1>Z Text</h1>
   <h2>A text-based zombie survival game</h2>
+  
+  <div style="clear:both;"></div>
   
   <div id="output" name="output"></div>
   <input type="text" name="commands" id="commands" />
@@ -22,20 +25,21 @@
     <ul></ul>
   </div>
   
-  <div id="help">Help Text: grab, move, set, use, combine, look, examine</div>
+  <div id="help">grab, move, set, use, combine, look, examine</div>
   
   <div id="location">
     Current Location: <span></span>
     <!--insert image of house -->
   </div>
   
-  
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery.shuffle.js"></script>
-  <script src="js/house.js"></script>
-  <script src="js/zombie.js"></script>
-  <script src="js/survivor.js"></script>
-  <script src="js/commands.js"></script>
+  <script src="vendor/jquery.min.js"></script>
+  <script src="vendor/jquery.shuffle.js"></script>
+  <script src="vendor/jquery.countdown.min.js"></script>
+  <script src="src/js/house.js"></script>
+  <script src="src/js/zombie.js"></script>
+  <script src="src/js/survivor.js"></script>
+  <script src="src/js/items.js"></script>
+  <script src="src/js/commands.js"></script>
   
 </BODY>
 </HTML>
