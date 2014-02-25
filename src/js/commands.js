@@ -2,10 +2,11 @@ $(document).ready(function(){
 
     updateLocation("garage");
     clearCommands();
+    $("#commands").prop("disabled", false);
     
     var dateObj = new Date();
-    //dateObj.setMinutes(dateObj.getMinutes() + 3); //production
-    dateObj.setSeconds(dateObj.getSeconds() + 3); //debugging
+    dateObj.setMinutes(dateObj.getMinutes() + 3); //production
+    //dateObj.setSeconds(dateObj.getSeconds() + 3); //debugging
     
     $('#timer').countdown(dateObj, function(event) {
         $(this).html(event.strftime('%M:%S'));
@@ -225,7 +226,7 @@ $(document).ready(function(){
             //get the items currently in the room
             var items_desc = "";
             var items_array = house[survivor.location].items;
-            console.log("Items Array: " + items_array);
+            //console.log("Items Array: " + items_array);
             for(var i=0; i < items_array.length; i++){
                 //get the items description
                 var tmp_item = items_array[i];
@@ -233,7 +234,22 @@ $(document).ready(function(){
                 items_desc += " " + items[tmp_item].description;
             }
             
-            result(room_desc + items_desc);
+            var direction = house[survivor.location].direction;
+                    
+            var hoarde = zombies.filter(function (obj) {
+              return obj.direction === direction;
+            })[0];
+
+            var threat = hoarde.threat;
+            if (threat <= 12) {
+                hoarde_desc = zombie_strength.low;
+            }else if (threat >= 13 && threat <= 25) {
+                hoarde_desc = zombie_strength.med;
+            }else if (threat > 26) {
+                hoarde_desc = zombie_strength.high;
+            }
+                        
+            result(room_desc + " " + items_desc + " " + hoarde_desc);
         }else{
             result("You're eyes well up with tears as you realize you're about to die...");
         }

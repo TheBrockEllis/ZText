@@ -24,7 +24,7 @@ var items = {
         score: 3
     },
     "pocket knife": {
-        description: "An original Swiss Army knife sits on a counter.",
+        description: "A small pocket knife sits on a counter.",
         score: 3
     },
     "gym socks": {

@@ -1,5 +1,23 @@
 //create the four groups of zombies
-var zombies = ["west", "south", "north", "east"];
+var zombies = [
+        {
+            "direction": "west",
+            "threat": 0
+        },
+        {
+            "direction": "south",
+            "threat": 0
+        },
+        {
+            "direction": "north",
+            "threat": 0
+        },
+        {
+            "direction": "east",
+            "threat": 0
+        }
+        ]
+        
     zombies = $.shuffle(zombies);
 
 //initialize the initial threat
@@ -11,10 +29,16 @@ for(var i=0; i < zombies.length; i++){
     var threat = Math.ceil(Math.random() * available_threat);
         
     //set that hoardes threat level
-    zombies[i][threat];
+    zombies[i].threat = threat;
     
     //update the available threat (it all adds up to 100)
     available_threat = available_threat - threat;
+}
+
+var zombie_strength = {
+    "low": "A few solitary zombies lumber forward in the distance.",
+    "med": "A sizable group of zombies is visable just over the horizon. They are walking this way.",
+    "high": "A horde of zombies is heading right for you. You can hear their moans in the distance."
 }
 
 //get random number between 0 and 3

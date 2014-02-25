@@ -4,6 +4,7 @@ var house = {
         name: "Kitchen",
         description: "The smell of rotten milk and eggs is overwhelming.",
         exit: 0,
+        direction: "south",
         visits: 0,
         on_enter: function() {
             if(!house.kitchen.visits++) {
@@ -24,6 +25,7 @@ var house = {
         name: "Garage",
         description: "The garage is dimly lit and smells of oil and saw dust.",
         exit: 0,
+        direction: "north",
         visits: 0,
         on_enter: function() {
             if(!house.garage.visits++) {
@@ -44,6 +46,7 @@ var house = {
         name: "Bedroom",
         description: "The bed is thrown across the room and the vanity mirror reflects light on the ceiling",
         exit: 0,
+        direction: "west",
         visits: 0,
         on_enter: function() {
             if(!house.bedroom.visits++) {
@@ -64,6 +67,7 @@ var house = {
         name: "Bathroom",
         description: "The medicine cabinet has been torn off the shelves and some of the drawers are still open",
         exit: 0,
+        direction: "east",
         visits: 0,
         on_enter: function() {
             if(!house.bathroom.visits++) {
