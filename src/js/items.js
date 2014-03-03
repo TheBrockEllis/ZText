@@ -2,94 +2,123 @@ var items = {
     ////Kitchen
     "knife": {
         description: "There is an old breadknife hidden under some rubble.",
-        score: 7
+		hint: "this knife looks dull alone, but it could be deadly if taped to something else.",
+        score: 7,
+		discovered: 0
     },
     "wine bottle": {
-        description: "A bottle or two of wine roll around the floor.",
-        score: 3
+        description: "A bottle of wine roll around the floor.",
+        hint: "This bottle of wine is half-empty and would be deadly if shattered.",
+		score: 3,
+		discovered: 0
     },
     
     "grill fork":{
         description: "A rusty, bent grill fork stands erect, jammed in a crack in the counter.",
-        score: 2
-    }
+		hint: "The grill fork is slightly bent, but could be used as a handle for another item...or on a handle.",
+        score: 2,
+		discovered: 0
+    },
     
     "broom":{
         description: "A plastic broom with a long handle rests curiously in the middle of the floor.",
-        score: 0
-    }
+		hint: "IT IS A BROOM",
+        score: 0,
+		discovered: 0
+    },
     
     "frying pan":{
         description: "A cast-iron frying pan sits atop the broken oven",
-        score:3
-    }
+		hint:"Particle man, particle man...",
+        score:3,
+		discovered: 0
+    },
     
     
     ////Garage
     "nails":{
         description:"A handful of sharp nails scattered on the floor.",
-        score:1
+		hint:"Don't step on these.",
+        score:1,
+		discovered: 0
     },
     "baseball bat":{
         description:"A wooden bat lies behind a broken table",
-        score:3
+        hint:"It's a glorified cudgel, you barbarian.",
+		score:3,
+		discovered: 0
     },
     
     "chainsaw": {
         description: "A very rusty chainsaw sits on the floor.",
         hint: "This looks like it needs gasoline to run.",
-        score: 12
+        score: 12,
+		discovered: 0
     },
     "hedge clippers": {
         description: "A pair of hedge clippers leans up against the wall.",
-        score: 5
+		hint:"A rusty pair of hedge clippers. Wouldn't it be insane to throw these?",
+        score: 5,
+		discovered: 0
     },
     "fireworks": {
         description: "A box of old fireworks gathers dust in the corner.",
-        score: 9
+		hint:"A box of highly-explosive fireworks. Not sure how these got left behind.",
+        score: 9,
+		discovered: 0
     },
     ////Bedroom
     "box fan":{
         description: "a burnt-out box fan with three metal blades leans casually against one window",
-        score:2
+        score:2,
+		discovered: 0
     },
     "television":{
         description: "A huge box TV from the late 90's sits overturned with a broken screen",
-        score: 1
-    }
+        score: 1,
+		discovered: 0
+    },
     "marbles": {
         description: "A single sack of marbles lies in an open drawer.",
-        score: 3
+        score: 3,
+		discovered: 0
     },
     "pocket knife": {
         description: "A small pocket knife sits on the floor.",
-        score: 3
+        score: 3,
+		discovered: 0
     },
     "gym socks": {
         description: "A pair of gym socks is thrown in front of the door.",
-        score: 1
+        score: 1,
+		discovered: 0
        },
-   ///Bathroom
+   //Bathroom
     "pipe": {
         description: "An old metal pipe sticks slightly out of the wall.",
-        score: 10
+        score: 10,
+		discovered: 0
     },
     "toilet seat": {
         description: "A random toilet seat lies on the floor.",
-        score: 3
+        score: 3,
+		discovered: 0
     },
     "curling iron": {
         description: "A curling iron is plugged into the wall.",
-        score: 2
+        score: 2,
+		discovered: 0
     },
     "plunger": {
         description: "A plunger is stuck to the wall. Who knows how long the suction will last.",
-        score: 
-    }
+        score: 0,
+		discovered: 0
+    },
     "shower rod": {
         description: "A bent metal shower rod approximately four feet in length.",
-        score: 3
-    }
+        score: 3,
+		discovered: 0
+    },
 
 
 }

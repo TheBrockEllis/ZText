@@ -18,7 +18,7 @@ var house = {
             name: "sliding door",
             item: ""
         },
-        items: ["wine bottle", "knife"]
+        items: ["wine bottle", "knife", "grill fork", "frying pan", "broom"]
     },
     
     garage:{
@@ -39,7 +39,7 @@ var house = {
             name: "garage door",
             item: ""
         },
-        items: ["chainsaw", "fireworks", "hedge clippers"]
+        items: ["chainsaw", "fireworks", "hedge clippers", "baseball bat", "nails"]
     },
     
     bedroom:{
@@ -60,7 +60,7 @@ var house = {
             name: "window",
             item: ""
         },
-        items: ["gym socks", "marbles", "pocket knife"]
+        items: ["gym socks", "marbles", "pocket knife", "television", "box fan"]
     },
     
     bathroom:{
@@ -81,7 +81,7 @@ var house = {
             name: "skylight",
             item: ""
         },
-        items: ["toilet seat", "plunger", "curling iron"]
+        items: ["toilet seat", "plunger", "curling iron", "shower rod", "pipe"]
     }
 
 };

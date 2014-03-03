@@ -256,20 +256,24 @@ $(document).ready(function(){
     } //end look
     
     
-    function examine(commands) {
-        if(house[survivor.location].items) {
+    function examine(command) {
+		            var item = command[1];
 
-            var item = commands[1];
+		if(command[2]) {
+            item +=  " " + command[2]; 
+        }
+          
+    if ( $.inArray(item, house[survivor.location].items) !== -1 ){
                                    
            // var items_array = house[survivor.location].items
             var item_examine = items[item].hint;
         
-        alert('booyeah');
+        
             
             console.log(item_examine);
             
             result(item_examine);
-    } else { result("It doens't work");
+    } else { result("Item isn't here!");
         }
     }
     
