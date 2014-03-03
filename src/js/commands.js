@@ -255,4 +255,23 @@ $(document).ready(function(){
         }
     } //end look
     
+    
+    function examine(commands) {
+        if(house[survivor.location].items) {
+
+            var item = commands[1];
+                                   
+           // var items_array = house[survivor.location].items
+            var item_examine = items[item].hint;
+        
+        alert('booyeah');
+            
+            console.log(item_examine);
+            
+            result(item_examine);
+    } else { result("It doens't work");
+        }
+    }
+    
+    
 });
