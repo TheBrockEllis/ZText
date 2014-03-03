@@ -42,21 +42,16 @@ var zombie_strength = {
 }
 
 //get random number between 0 and 3
-var exit = Math.ceil(Math.random() * 3); 
+var exit = Math.floor(Math.random() * 4); 
 
 //get the keys of the house object (the names of the rooms)
 var keys = Object.keys(house);
 
 //get the name of the room the exit is going to be
-var exit = keys[exit];
+var exit_room = keys[exit];
 
 //set the exit 
-house[exit].exit = 1;
+house[exit_room].exit = 1;
 
-//will contain ALL of the attack logic
-function attack(){
-    $("#commands").prop("disabled", "disabled");
-    alert("ZOMBIES ATTACKED AND YOURE DEAD");
-}
 
 

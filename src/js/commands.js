@@ -6,7 +6,7 @@ $(document).ready(function(){
     
     var dateObj = new Date();
     dateObj.setMinutes(dateObj.getMinutes() + 3); //production
-    //dateObj.setSeconds(dateObj.getSeconds() + 3); //debugging
+    //dateObj.setSeconds(dateObj.getSeconds() + 7); //debugging
     
     $('#timer').countdown(dateObj, function(event) {
         $(this).html(event.strftime('%M:%S'));
@@ -105,11 +105,6 @@ $(document).ready(function(){
     }
     
     function updateInventory(item){
-        if (survivor.inventory.length >= 2) {
-            result("You are already carrying as much as you can handle!");
-            return;
-        }
-        
         if ( $.inArray(item, survivor.inventory) !== -1){
             //the item is already in your inventory and needs to be removed
             
@@ -120,6 +115,13 @@ $(document).ready(function(){
             survivor.inventory.splice(inventory_index, 1);
         }else{
             //the item is not in your inventory and needs to be added
+            
+            //do you already have two items?
+            if (survivor.inventory.length >= 2) {
+                result("You are already carrying as much as you can handle!");
+                return;
+            }
+            
             survivor.inventory.push(item);
         }
         
@@ -155,6 +157,9 @@ $(document).ready(function(){
             //find the index of the item in the room
             var room_index = house[survivor.location].items.indexOf(item);
             house[survivor.location].items.splice(room_index, 1);
+            
+            //mark that item as discovered
+            items[item].discovered = 1;
             
             //add item to your inventory
             if( updateInventory(item) ) result("You add " +item+" to your inventory");
@@ -254,6 +259,117 @@ $(document).ready(function(){
             result("You're eyes well up with tears as you realize you're about to die...");
         }
     } //end look
+
+    //BEGIN THE ATTACK!!
+    function attack(){
+        $("#commands").prop("disabled", "disabled");
+    
+        //REMOVE LATERS - use for debugging
+        //var exit_room = "garage";
+    
+        if(survivor.location === exit_room){
+            //you are in the exit room!
+            if( skirmish(exit_room) ){
+                result("You WIN!");
+            }else{
+                result("You lose!");
+            }
+        }else if (  $.inArray(exit_room, house[survivor.location].nextTo !== -1) ) {
+            //you're in the room that is next to the exit!
+            result("You're next to the exit!");
+        }else{
+            //you must travel the house to get to the exit!
+            result("You're far away from the room!");
+        }
+            
+    }
+    
+    //deal with battles
+    //pass it a room and it will calculate whether the survivor lives or dies
+    //will return false on death, true on survival
+    function skirmish(room) {
+        var direction = house[room].direction;
+        var hoarde = zombies.filter(function (obj) {
+              return obj.direction === direction;
+            })[0];
+        
+        console.log("Initial Zombie Threat: " + hoarde.threat);
+        result("You hear the zombies directly outside the window. They're coming for you.");
+        
+        var defensive_item = house[room].defense.item;
+        if(defensive_item){
+            var defensive_item_score = items[defensive_item].score;
+            console.log("D Item: " + defensive_item + " with a score of " + defensive_item_score);
+            console.log("Zombie strenght: " + hoarde.threat);
+            hoarde.threat -= house[room].defense.item;
+            result("The defensive item you placed damaged the zombies!");
+        }//end defensive item
+            
+        console.log("Zombie threat after defensive item " + hoarde.threat);
+        if (hoarde.threat > 0) {
+            //zombie are still alive!
+            
+            //use all the items in the room that hae been discovered
+            var weapons = [];
+            var room_items = house[room].items;
+            for(var i=0; i < room_items.length; i++){
+                var room_item = room_items[i];
+                if ( items[room_item].discovered ) {
+                    weapons.push = room_item;
+                }
+            }
+            
+            //start doing the math for those items
+            for(var i=0; i < weapons.length; i++){
+                var weapon = weapons[i];
+                var damage = items[weapon].score;
+                hoarde.threat -= damage;
+                result("You hit the zombies with " + weapon + "!");
+            }
+            
+            console.log("Zombie threate after room items: " + hoarde.threat);
+            //zombies still alive? Use your personal items
+            if (hoarde.threat > 0) {
+                if(survivor.hand1) {
+                    var hand1_score = items[survivor.hand1].score;
+                    hoarde.threat -= hand1_score;
+                    //TO DO - remove item from survivor object
+                }
+                
+                console.log("Zombie threat after 1st hand weapon: " + hoarde.threat);
+                if (hoarde.threat > 0) {
+                    //STILL MORE ZOMBIES! use second personal weapon
+                    if(survivor.hand1){
+                        var hand2_score = items[survivor.hand2].score;
+                        hoarde.threat -= hand2_score;
+                        //TO DO - remove item fro survivor object
+                    }
+                    
+                    console.log("Zombie threat after 2nd hand weapon: " + hoarde.threat);
+                    if (hoarde.threat > 0) {
+                        //YOU DIED!
+                        return false;
+                    }else{
+                        return("You bashed the zombies with your " + survivor.hand2);
+                        return true;
+                    }
+                    
+                }else{
+                    return("You bashed the zombies with your " + survivor.hand1);
+                    return true;
+                }
+                
+            }else{
+                return("You bashed the zombies with your " + survivor.hand1);
+                return true;
+            }
+        }else{
+            //you defeated the zombies!
+            result("You defeated the zombies!");
+            return true;
+        }
+    
+    }//end skirmish
     
     
     function examine(command) {
@@ -279,3 +395,5 @@ $(document).ready(function(){
     
     
 });
+
+
