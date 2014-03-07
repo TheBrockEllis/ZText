@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="vendor/flipclock/css/flipclock.css" />
   <link rel="stylesheet" href="src/css/main.css" />
 </HEAD>
-<BODY>
+<BODY style='border:0px solid red;width:100%;'>
   <div id="timer"></div>
 
   <h1>Z Text</h1>
@@ -25,12 +25,47 @@
     <ul></ul>
   </div>
   
-  <div id="help">grab, move, set, use, combine, look, examine</div>
   
+  
+  <p id="helptext"></p>
   <div id="location">
     Current Location: <span></span>
     <!--insert image of house -->
   </div>
+  
+  
+  <!--shows what all the commands do-->
+  <button id="button">Commands</button>
+  <div id="help">
+  <table>
+  <tr>
+  <td><B>Grab:</B> Grabs items and puts in inventory.</td>
+  </tr>
+  <tr>
+  <td><B>Move:</B> Moves you from room to room.</td>
+  </tr>
+  <tr>
+  <td><B>Set:</B> Sets item for defence.</td>
+  </tr>
+  <tr>
+  <td><B>Use:</B> Puts items in your hands.</td>
+  </tr>
+  <tr>
+  <td><B>Combine:</B> Combines two items to create a new item.</td>
+  </tr>
+  <tr>
+  <td><B>Look:</B> Looks around the room and gives a description.</td>
+  </tr>
+  <tr>
+  <td><B>Examine:</B> Examines and item and gives a detailed description.</td>
+  </tr>
+  </table>
+  </div>
+  
+  
+  
+ 
+ 
   
   <script src="vendor/jquery.min.js"></script>
   <script src="vendor/jquery.shuffle.js"></script>
@@ -40,6 +75,14 @@
   <script src="src/js/survivor.js"></script>
   <script src="src/js/items.js"></script>
   <script src="src/js/commands.js"></script>
-  
+   <script >
+    
+    ///hover over help.. need to make when not hover it goes aback.
+  $('document').ready(function(){
+    $('#button').click(function(){
+      $('#help').toggle();
+    });
+  });
+  </script>
 </BODY>
 </HTML>
