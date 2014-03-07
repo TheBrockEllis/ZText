@@ -220,24 +220,27 @@ $(document).ready(function(){
         //do you have that item in your inventory
         if ( $.inArray(item, survivor.inventory) !== -1 ) {
             
-        //yes you do!
-        if (survivor.hand !== "") {
-                result("" + item + " is already being used!");
-            return;               
-            } 
-        
-            //remove item from inventory
-            updateInventory(item);
-            
-        //add that item to the hand 
-            //survivor.hand,item = item; console.log("loil2")
-        if (survivor.hand !== 2) {
-                survivor[survivor.hand]= item;
+            //yes you do!
+            if (survivor.hand.length >= 2) {
+                result("You already have too many items.");
+                return;               
+            }else{
+                //remove item from inventory 
+                updateInventory(item);
+                
+                //add that item to the hand 
+                survivor.hand.push(item);
+                
+                result("You wield " + item + ".");
             }
-            result("You wield " + item +".");
+        
+            //survivor.hand,item = item; console.log("loil2")
+            /*if (survivor.hand !== 2) {
+                survivor[survivor.hand]= item;
+            }*/
         }else{
-            result("You can't do that!");
-    }
+            result("You dont have that item in your inventory!");
+        }
     }
     //end use
     
