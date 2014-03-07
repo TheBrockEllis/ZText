@@ -208,6 +208,39 @@ $(document).ready(function(){
         }
     }//end set
     
+    function use(command){
+        //what item are you trying to use
+        var item = command[1]
+        
+        //does the item have more than one word?
+        if(command[2]) {
+            item +=  " " + command[2]; 
+        }        
+        
+        //do you have that item in your inventory
+        if ( $.inArray(item, survivor.inventory) !== -1 ) {
+            
+        //yes you do!
+        if (survivor.hand !== "") {
+                result("" + item + " is already being used!");
+            return;               
+            } 
+        
+            //remove item from inventory
+            updateInventory(item);
+            
+        //add that item to the hand 
+            //survivor.hand,item = item; console.log("loil2")
+        if (survivor.hand !== 2) {
+                survivor[survivor.hand]= item;
+            }
+            result("You wield " + item +".");
+        }else{
+            result("You can't do that!");
+    }
+    }
+    //end use
+    
     function move(command){
         //where are you trying to go
         var destination = command[2];
