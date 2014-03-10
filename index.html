@@ -1,87 +1,121 @@
 <!DOCTYPE html>
-<HTML>
-<HEAD>
-  <title>Z Text</title>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="vendor/flipclock/css/flipclock.css" />
-  <link rel="stylesheet" href="src/css/main.css" />
-</HEAD>
-<BODY style='border:0px solid red;width:100%;'>
-  <div id="timer"></div>
+<html>
+<head>
+	<title>Z Text</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="src/css/main.css" />
+</head>
+<body style="border:0px solid red; width:100%;">
+	<div id="timer"></div>
 
-  <h1>Z Text</h1>
-  <h2>A text-based zombie survival game</h2>
+	<h1>Z Text</h1>
+	<h2>A text-based zombie survival game</h2>
 
-  <div style="clear:both;"></div>
+	<div style="clear:both;"></div>
 
-  <div id="output" name="output"></div>
-  <input type="text" name="commands" id="commands" placeholder="What are you going to do?" />
-  <button id="enter">Enter</button>
+	<div id="output" name="output"></div>
+	<input type="text" name="commands" id="commands" placeholder="What are you going to do?" />
+	<button id="enter">Enter</button>
 
-  <div style="clear:both;"></div>
+	<div style="clear:both;"></div>
 
-  <div id="inventory">
-    Inventory
-    <ul></ul>
-  </div>
-
+	<div id="inventory">
+		Inventory
+		<ul></ul>
+	</div>
 
 
-  <p id="helptext"></p>
-  <div id="location">
-    Current Location: <span></span>
-    <!--insert image of house -->
-  </div>
+	<p id="helptext"></p>
+	<div id="location">
+		Current Location: <span></span>
+		<!--insert image of house -->
+	</div>
 
 
-  <!--shows what all the commands do-->
-  <button id="button">Commands</button>
-  <div id="help">
-  <table>
-  <tr>
-  <td><B>Grab:</B> Grabs items and puts in inventory.</td>
-  </tr>
-  <tr>
-  <td><B>Move:</B> Moves you from room to room.</td>
-  </tr>
-  <tr>
-  <td><B>Set:</B> Sets item for defence.</td>
-  </tr>
-  <tr>
-  <td><B>Use:</B> Puts items in your hands.</td>
-  </tr>
-  <tr>
-  <td><B>Combine:</B> Combines two items to create a new item.</td>
-  </tr>
-  <tr>
-  <td><B>Look:</B> Looks around the room and gives a description.</td>
-  </tr>
-  <tr>
-  <td><B>Examine:</B> Examines and item and gives a detailed description.</td>
-  </tr>
-  </table>
-  </div>
+	<!--shows what all the commands do-->
+	<button id="button">Commands</button>
+	<div id="help">
+	<table>
+	<tr>
+	<td><b>Grab:</b> Grabs items and puts in inventory.</td>
+	</tr>
+	<tr>
+	<td><b>Move:</b> Moves you from room to room.</td>
+	</tr>
+	<tr>
+	<td><b>Set:</b> Sets item for defence.</td>
+	</tr>
+	<tr>
+	<td><b>Use:</b> Puts items in your hands.</td>
+	</tr>
+	<tr>
+	<td><b>Combine:</b> Combines two items to create a new item.</td>
+	</tr>
+	<tr>
+	<td><b>Look:</b> Looks around the room and gives a description.</td>
+	</tr>
+	<tr>
+	<td><b>Examine:</b> Examines and item and gives a detailed description.</td>
+	</tr>
+	</table>
+	</div>
 
 
+	<script src="vendor/jquery.min.js"></script>
+	<script src="vendor/jquery.shuffle.js"></script>
+	<script src="src/js/house.js"></script>
+	<script src="src/js/zombie.js"></script>
+	<script src="src/js/survivor.js"></script>
+	<script src="src/js/items.js"></script>
+	<script src="src/js/commands.js"></script>
 
+	<script>
+		// hover over help.. need to make when not hover it goes back
+		$("document").ready(function(){
+			$("#button").click(function(){
+				$("#help").toggle();
+			});
 
+			// simulate the enter key being pressed (for mobile devices mostly)
+			$("#enter").click(function(){
+				var e = jQuery.Event("keypress");
+				e.which = 13; // # Some key code value
+				e.keyCode = 13;
+				$("#commands").trigger(e);
+			});
 
+			updateLocation("garage");
+			clearCommands();
+			$("#commands").prop("disabled", false);
 
-  <script src="vendor/jquery.min.js"></script>
-  <script src="vendor/jquery.shuffle.js"></script>
-  <script src="src/js/house.js"></script>
-  <script src="src/js/zombie.js"></script>
-  <script src="src/js/survivor.js"></script>
-  <script src="src/js/items.js"></script>
-  <script src="src/js/commands.js"></script>
-  <script>
-
-    ///hover over help.. need to make when not hover it goes aback.
-  $('document').ready(function(){
-    $('#button').click(function(){
-      $('#help').toggle();
-    });
-  });
-  </script>
-</BODY>
-</HTML>
+			// set timer minutes and seconds, initialize variable to display timer as a string
+			var timerMin = 3;
+			var timerSec = 1;
+			var timerOut = "";
+			// update countdown clock every 1 second
+			var countdown = setInterval(function(){
+				// if seconds = 0, decrement minutes and set seconds to 59 (1:00 - :01 = 0:59), otherwise decrement seconds
+				if (timerSec == 0) {
+					timerMin--;
+					timerSec = 59;
+				} else {
+					timerSec--;
+				}
+				// build timer string, insert a zero after the colon if seconds < 10 (i.e. output 1:09 rather than 1:9)
+				if (timerSec < 10) {
+					timerOut = timerMin + ":" + "0" + timerSec;
+				} else {
+					timerOut = timerMin + ":" + timerSec;
+				}
+				// overwrite old timer with new timer string
+				$("#timer").text(timerOut);
+				// if minutes and seconds are both zero, stop updating countdown and call attack function
+				if (timerMin == 0 && timerSec == 0) {
+					clearInterval(countdown);
+					attack();
+				}
+			}, 1000);
+		});
+	</script>
+</body>
+</html>
