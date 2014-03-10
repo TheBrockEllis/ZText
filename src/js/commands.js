@@ -225,7 +225,7 @@ function use(command){
 
 function move(command){
 	//where are you trying to go
-	var destination = command[2];
+	var destination = command[1];
 
 	//can you move there
 	if ( $.inArray(destination, house[survivor.location].nextTo) !== -1 ){
