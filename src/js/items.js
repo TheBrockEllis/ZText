@@ -2,53 +2,53 @@ var items = {
     ////Kitchen
     "knife": {
         description: "There is an old breadknife hidden under some rubble.",
-		hint: "this knife looks dull alone, but it could be deadly if taped to something else.",
+		hint: "This knife looks dull alone, but it could be deadly if taped to something else.",
         score: 7,
 		discovered: 0
     },
     "wine bottle": {
-        description: "A bottle of wine roll around the floor.",
+        description: "A bottle of wine rolls around on the floor.",
         hint: "This bottle of wine is half-empty and would be deadly if shattered.",
 		score: 3,
 		discovered: 0
     },
-    
+
     "grill fork":{
         description: "A rusty, bent grill fork stands erect, jammed in a crack in the counter.",
 		hint: "The grill fork is slightly bent, but could be used as a handle for another item...or on a handle.",
         score: 2,
 		discovered: 0
     },
-    
+
     "broom":{
         description: "A plastic broom with a long handle rests curiously in the middle of the floor.",
 		hint: "IT IS A BROOM",
         score: 0,
 		discovered: 0
     },
-    
+
     "frying pan":{
-        description: "A cast-iron frying pan sits atop the broken oven",
+        description: "A cast-iron frying pan sits atop the broken oven.",
 		hint:"Particle man, particle man...",
         score:3,
 		discovered: 0
     },
-    
-    
+
+
     ////Garage
     "nails":{
-        description:"A handful of sharp nails scattered on the floor.",
+        description:"A handful of sharp nails is scattered on the floor.",
 		hint:"Don't step on these.",
         score:1,
 		discovered: 0
     },
     "baseball bat":{
-        description:"A wooden bat lies behind a broken table",
+        description:"A wooden baseball bat lies behind a broken table.",
         hint:"It's a glorified cudgel, you barbarian.",
 		score:3,
 		discovered: 0
     },
-    
+
     "chainsaw": {
         description: "A very rusty chainsaw sits on the floor.",
         hint: "This looks like it needs gasoline to run.",
@@ -69,12 +69,12 @@ var items = {
     },
     ////Bedroom
     "box fan":{
-        description: "a burnt-out box fan with three metal blades leans casually against one window",
+        description: "A burnt-out box fan with three metal blades leans casually against one window.",
         score:2,
 		discovered: 0
     },
     "television":{
-        description: "A huge box TV from the late 90's sits overturned with a broken screen",
+        description: "A huge box TV from the late 90's sits overturned with a broken screen.",
         score: 1,
 		discovered: 0
     },

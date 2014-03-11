@@ -5,117 +5,97 @@
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="src/css/main.css" />
 </head>
-<body style="border:0px solid red; width:100%;">
-	<div id="timer"></div>
 
-	<h1>Z Text</h1>
-	<h2>A text-based zombie survival game</h2>
+<body>
+<div id="timer"></div>
 
-	<div style="clear:both;"></div>
+<h1>Z Text</h1>
+<h2>A text-based zombie survival game</h2>
 
-	<div id="output" name="output"></div>
-	<input type="text" name="commands" id="commands" placeholder="What are you going to do?" />
-	<button id="enter">Enter</button>
+<div id="output"></div>
+<input id="commands" type="text" placeholder="What are you going to do?" />
+<button id="enter">Enter</button>
+<button id="button">Toggle Commands</button>
 
-	<div style="clear:both;"></div>
+<div id="inventory" class="column">
+	<p><b>Inventory</b></p>
+	<ul></ul>
+</div>
 
-	<div id="inventory">
-		Inventory
-		<ul></ul>
-	</div>
-
-
+<div id="location" class="column">
+	<p><b>Current Location: </b><span></span></p>
+	<!--insert image of house -->
 	<p id="helptext"></p>
-	<div id="location">
-		Current Location: <span></span>
-		<!--insert image of house -->
-	</div>
+</div>
+
+<!--shows what all the commands do-->
+<div id="help" class="column">
+	<p><b>Grab:</b> Places an item in inventory.</p>
+	<p><b>Move:</b> Moves you to an adjoining room.</p>
+	<p><b>Set:</b> Sets an item in a defensive position.</p>
+	<p><b>Use:</b> Wields an item.</p>
+	<p><b>Combine:</b> Combines two items to create a new item.</p>
+	<p><b>Look:</b> Looks around the room and gives a description.</p>
+	<p><b>Examine:</b> Examines an item and gives a detailed description.</p>
+</div>
 
 
-	<!--shows what all the commands do-->
-	<button id="button">Commands</button>
-	<div id="help">
-	<table>
-	<tr>
-	<td><b>Grab:</b> Grabs items and puts in inventory.</td>
-	</tr>
-	<tr>
-	<td><b>Move:</b> Moves you from room to room.</td>
-	</tr>
-	<tr>
-	<td><b>Set:</b> Sets item for defence.</td>
-	</tr>
-	<tr>
-	<td><b>Use:</b> Puts items in your hands.</td>
-	</tr>
-	<tr>
-	<td><b>Combine:</b> Combines two items to create a new item.</td>
-	</tr>
-	<tr>
-	<td><b>Look:</b> Looks around the room and gives a description.</td>
-	</tr>
-	<tr>
-	<td><b>Examine:</b> Examines and item and gives a detailed description.</td>
-	</tr>
-	</table>
-	</div>
+<script src="vendor/jquery.min.js"></script>
+<script src="vendor/jquery.shuffle.js"></script>
+<script src="src/js/house.js"></script>
+<script src="src/js/zombie.js"></script>
+<script src="src/js/survivor.js"></script>
+<script src="src/js/items.js"></script>
+<script src="src/js/commands.js"></script>
 
-
-	<script src="vendor/jquery.min.js"></script>
-	<script src="vendor/jquery.shuffle.js"></script>
-	<script src="src/js/house.js"></script>
-	<script src="src/js/zombie.js"></script>
-	<script src="src/js/survivor.js"></script>
-	<script src="src/js/items.js"></script>
-	<script src="src/js/commands.js"></script>
-
-	<script>
-		// hover over help.. need to make when not hover it goes back
-		$("document").ready(function(){
-			$("#button").click(function(){
-				$("#help").toggle();
-			});
-
-			// simulate the enter key being pressed (for mobile devices mostly)
-			$("#enter").click(function(){
-				var e = jQuery.Event("keypress");
-				e.which = 13; // # Some key code value
-				e.keyCode = 13;
-				$("#commands").trigger(e);
-			});
-
-			updateLocation("garage");
-			clearCommands();
-			$("#commands").prop("disabled", false);
-
-			// set timer minutes and seconds, initialize variable to display timer as a string
-			var timerMin = 3;
-			var timerSec = 1;
-			var timerOut = "";
-			// update countdown clock every 1 second
-			var countdown = setInterval(function(){
-				// if seconds = 0, decrement minutes and set seconds to 59 (1:00 - :01 = 0:59), otherwise decrement seconds
-				if (timerSec == 0) {
-					timerMin--;
-					timerSec = 59;
-				} else {
-					timerSec--;
-				}
-				// build timer string, insert a zero after the colon if seconds < 10 (i.e. output 1:09 rather than 1:9)
-				if (timerSec < 10) {
-					timerOut = timerMin + ":" + "0" + timerSec;
-				} else {
-					timerOut = timerMin + ":" + timerSec;
-				}
-				// overwrite old timer with new timer string
-				$("#timer").text(timerOut);
-				// if minutes and seconds are both zero, stop updating countdown and call attack function
-				if (timerMin == 0 && timerSec == 0) {
-					clearInterval(countdown);
-					attack();
-				}
-			}, 1000);
+<script>
+	// hover over help.. need to make when not hover it goes back
+	$("document").ready(function(){
+		$("#button").click(function(){
+			$("#help").toggle();
 		});
-	</script>
+
+		// simulate the enter key being pressed (for mobile devices mostly)
+		$("#enter").click(function(){
+			var e = jQuery.Event("keypress");
+			e.which = 13; // # Some key code value
+			e.keyCode = 13;
+			$("#commands").trigger(e);
+		});
+
+		updateLocation("garage");
+		clearCommands();
+		$("#commands").prop("disabled", false);
+
+		// set timer minutes and seconds, initialize variable to display timer as a string
+		var timerMin = 3;
+		var timerSec = 1;
+		var timerOut = "";
+		// update countdown clock every 1 second
+		var countdown = setInterval(function(){
+			// if seconds = 0, decrement minutes and set seconds to 59 (1:00 - :01 = 0:59), otherwise decrement seconds
+			if (timerSec == 0) {
+				timerMin--;
+				timerSec = 59;
+			} else {
+				timerSec--;
+			}
+			// build timer string, insert a zero after the colon if seconds < 10 (i.e. output 1:09 rather than 1:9)
+			if (timerSec < 10) {
+				timerOut = timerMin + ":" + "0" + timerSec;
+			} else {
+				timerOut = timerMin + ":" + timerSec;
+			}
+			// overwrite old timer with new timer string
+			$("#timer").text(timerOut);
+			// if minutes and seconds are both zero, stop updating countdown and call attack function
+			if (timerMin == 0 && timerSec == 0) {
+				clearInterval(countdown);
+				attack();
+			}
+		}, 1000);
+	});
+</script>
 </body>
+
 </html>
