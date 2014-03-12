@@ -140,7 +140,7 @@ function grab(command){
 		items[item].discovered = 1;
 
 		//add item to your inventory
-		if( updateInventory(item) ) result("You add " +item+" to your inventory");
+		if( updateInventory(item) ) result("You add " + item + " to your inventory.");
 	}else if(item === house[survivor.location].defense.item){
 		//the item was in the defensive position
 
@@ -150,7 +150,7 @@ function grab(command){
 		//remove it from the defensive position
 		house[survivor.location].defense.item = "";
 
-		result("You remove the "+item+" from the "+house[survivor.location].defense.name);
+		result("You remove the " + item + " from the " + house[survivor.location].defense.name + ".");
 	}else{
 		result("That item isn't in this room!");
 	}
@@ -223,6 +223,48 @@ function use(command){
 }
 //end use
 
+function combine(command) {
+	var item;
+	var item2;
+	switch (command.length) {
+		// "combine item and item"
+		case 4:
+			item = command[1];
+			item2 = command[3];
+			break;
+		// "combine item and another item" or "combine this item and item"
+		case 5:
+			if (command[2] == "and") {
+				item = command[1];
+				item2 = command[3] + " " + command[4];
+			} else if (command[3] == "and") {
+				item = command[1] + " " + command [2];
+				item2 = command[4];
+			}
+			break;
+		// "combine this item and another item"
+		case 6:
+			item = command[1] + " " + command[2];
+			item2 = command[4] + " " + command[5];
+			break;
+	}
+	var combo = item + "+" + item2;
+	var combo2 = item2 + "+" + item;
+	if (combos[combo]) {
+		updateInventory(item);
+		updateInventory(item2);
+		updateInventory(combos[combo].name);
+		result("You create a " + combos[combo].name + ".");
+	} else if (combos[combo2]) {
+		updateInventory(item);
+		updateInventory(item2);
+		updateInventory(combos[combo2].name);
+		result("You create a " + combos[combo2].name + ".");
+	} else {
+		result("Not a valid combination.");
+	}
+}
+
 function move(command){
 	//where are you trying to go
 	var destination = command[1];
@@ -230,10 +272,10 @@ function move(command){
 	//can you move there
 	if ( $.inArray(destination, house[survivor.location].nextTo) !== -1 ){
 		//yes you can move
-		result("You move to the " + destination);
+		result("You move to the " + destination + ".");
 		updateLocation(destination);
 	}else{
-		result("You cannot move to that room directly from the room you're in");
+		result("You cannot move to that room directly from the room you're in.");
 	}
 }//end move
 
@@ -365,17 +407,17 @@ function skirmish(room) {
 					//YOU DIED!
 					return false;
 				}else{
-					return("You bashed the zombies with your " + survivor.hand2);
+					return("You bashed the zombies with your " + survivor.hand2 + ".");
 					return true;
 				}
 
 			}else{
-				return("You bashed the zombies with your " + survivor.hand1);
+				return("You bashed the zombies with your " + survivor.hand1 + ".");
 				return true;
 			}
 
 		}else{
-			return("You bashed the zombies with your " + survivor.hand1);
+			return("You bashed the zombies with your " + survivor.hand1 + ".");
 			return true;
 		}
 	}else{

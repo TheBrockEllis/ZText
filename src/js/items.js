@@ -22,7 +22,6 @@ var allItems = [
 ];
 
 var items = {
-    ////Kitchen
     "knife": {
         description: "There is an old breadknife hidden under some rubble.",
 		hint: "This knife looks dull alone, but it could be deadly if taped to something else.",
@@ -53,9 +52,6 @@ var items = {
         score:3,
 		discovered: 0
     },
-
-
-    ////Garage
     "nails":{
         description:"A handful of sharp nails is scattered on the floor.",
 		hint:"Don't step on these.",
@@ -86,15 +82,13 @@ var items = {
         score: 9,
 		discovered: 0
     },
-
-    ////Bedroom
     "box fan":{
         description: "A burnt-out box fan with three metal blades leans casually against one window.",
         score:2,
 		discovered: 0
     },
     "television":{
-        description: "A huge box TV from the late 90's sits overturned with a broken screen.",
+        description: "A huge box television from the late 90's sits overturned with a broken screen.",
         score: 1,
 		discovered: 0
     },
@@ -113,8 +107,6 @@ var items = {
         score: 1,
 		discovered: 0
        },
-
-   //Bathroom
     "pipe": {
         description: "An old metal pipe sticks slightly out of the wall.",
         score: 10,
@@ -140,13 +132,18 @@ var items = {
         score: 3,
 		discovered: 0
     },
+
+    // combos
+    "pipebomb": {
+        description: "Gun powder lit in a confined space could cause quite a bit of damage.",
+        score: 25,
+		discovered: 0
+    },
 }
 
 //we need to work on these combos...
 var combos = {
     "fireworks+pipe" : {
-        name: "pipebomb",
-        description: "Gun powder lit in a confined space could cause quite a bit of damage.",
-        score: 25
+        name: "pipebomb"
     }
 }

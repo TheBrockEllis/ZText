@@ -44,7 +44,7 @@ var house = {
 
     bedroom:{
         name: "Bedroom",
-        description: "The bed is thrown across the room and the vanity mirror reflects light on the ceiling",
+        description: "The bed is thrown across the room and the vanity mirror reflects light on the ceiling.",
         exit: 0,
         direction: "west",
         visits: 0,
