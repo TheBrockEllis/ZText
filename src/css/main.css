@@ -1,4 +1,4 @@
-html{
+html {
 	/* This image will be displayed fullscreen */
 	background:url('../img/background.jpg') no-repeat center center;
 
@@ -34,27 +34,32 @@ h2 {
 }
 
 #output {
-	width:100%;
+	width:90%;
 	color: #000;
 	height: 200px;
 	max-height: 200px;
 	overflow: auto;
 	border: 1px solid #c0c0c0;
-	margin: 10px 0px;
+	margin: 10px auto;
 	padding: 0px 10px 10px 10px;
 	background-color: #f0f0f0;
 	border-radius: 7px;
 	clear:both;
 }
 
+#input {
+	width:90%;
+	margin: 0px auto;
+}
+
 #commands {
 	text-align: left;
 	width: 50%;
-	margin: 10px 0px 0px 10px;
+	margin: 0px 5px 0px 0px;
 }
 
-#button {
-	margin-left: 10px;
+#helpBtn {
+	margin: 0px 0px 0px 5px;
 }
 
 .column {

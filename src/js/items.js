@@ -1,3 +1,26 @@
+var allItems = [
+	"wine bottle",
+	"knife",
+	"grill fork",
+	"frying pan",
+	"broom",
+	"chainsaw",
+	"fireworks",
+	"hedge clippers",
+	"baseball bat",
+	"nails",
+	"gym socks",
+	"marbles",
+	"pocket knife",
+	"television",
+	"box fan",
+	"toilet seat",
+	"plunger",
+	"curling iron",
+	"shower rod",
+	"pipe"
+];
+
 var items = {
     ////Kitchen
     "knife": {
@@ -12,21 +35,18 @@ var items = {
 		score: 3,
 		discovered: 0
     },
-
     "grill fork":{
         description: "A rusty, bent grill fork stands erect, jammed in a crack in the counter.",
 		hint: "The grill fork is slightly bent, but could be used as a handle for another item...or on a handle.",
         score: 2,
 		discovered: 0
     },
-
     "broom":{
         description: "A plastic broom with a long handle rests curiously in the middle of the floor.",
 		hint: "IT IS A BROOM",
         score: 0,
 		discovered: 0
     },
-
     "frying pan":{
         description: "A cast-iron frying pan sits atop the broken oven.",
 		hint:"Particle man, particle man...",
@@ -48,7 +68,6 @@ var items = {
 		score:3,
 		discovered: 0
     },
-
     "chainsaw": {
         description: "A very rusty chainsaw sits on the floor.",
         hint: "This looks like it needs gasoline to run.",
@@ -67,6 +86,7 @@ var items = {
         score: 9,
 		discovered: 0
     },
+
     ////Bedroom
     "box fan":{
         description: "A burnt-out box fan with three metal blades leans casually against one window.",
@@ -93,6 +113,7 @@ var items = {
         score: 1,
 		discovered: 0
        },
+
    //Bathroom
     "pipe": {
         description: "An old metal pipe sticks slightly out of the wall.",
@@ -119,8 +140,6 @@ var items = {
         score: 3,
 		discovered: 0
     },
-
-
 }
 
 //we need to work on these combos...

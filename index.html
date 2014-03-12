@@ -13,9 +13,11 @@
 <h2>A text-based zombie survival game</h2>
 
 <div id="output"></div>
-<input id="commands" type="text" placeholder="What are you going to do?" />
-<button id="enter">Enter</button>
-<button id="button">Toggle Commands</button>
+<div id="input">
+	<input id="commands" type="text" placeholder="What are you going to do?" />
+	<button id="enter">Enter</button>
+	<button id="helpBtn">Toggle Commands</button>
+</div>
 
 <div id="inventory" class="column">
 	<p><b>Inventory</b></p>
@@ -39,7 +41,6 @@
 	<p><b>Examine:</b> Examines an item and gives a detailed description.</p>
 </div>
 
-
 <script src="vendor/jquery.min.js"></script>
 <script src="vendor/jquery.shuffle.js"></script>
 <script src="src/js/house.js"></script>
@@ -51,9 +52,37 @@
 <script>
 	// hover over help.. need to make when not hover it goes back
 	$("document").ready(function(){
-		$("#button").click(function(){
+		$("#helpBtn").click(function(){
 			$("#help").toggle();
 		});
+
+		// initialize variables for random number and random room
+		var rand;
+		var room = "";
+		// loop until all items are removed from allItems
+		while (allItems.length > 0) {
+			// choose a random number from 0 to 3
+			rand = Math.floor((Math.random()*4));
+			// choose a random room based on random number
+			switch (rand) {
+				case 0:
+					room = "kitchen";
+					break;
+				case 1:
+					room = "garage";
+					break;
+				case 2:
+					room = "bedroom";
+					break;
+				case 3:
+					room = "bathroom";
+					break;
+			}
+			// if selected room contains 6 items or less, remove last item from allItems and assign to room
+			if (house[room].items.length <= 6) {
+				house[room].items.push(allItems.pop());
+			}
+		}
 
 		// simulate the enter key being pressed (for mobile devices mostly)
 		$("#enter").click(function(){
