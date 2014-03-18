@@ -1,79 +1,98 @@
-html{
-    /* This image will be displayed fullscreen */
-    background:url('../img/background.jpg') no-repeat center center;
-
-    /* Ensure the html element always takes up the full height of the browser window */
-    min-height:100%;
-
-    /* The Magic */
-    background-size:cover;
+html {
+	/* This image will be displayed fullscreen */
+	background:url('../img/background.jpg') no-repeat center center;
+	/* Ensure the html element always takes up the full height of the browser window */
+	min-height:100%;
+	/* The Magic */
+	background-size:cover;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
-    min-height:100%;
-    width: 800px;
-    margin: 0 auto;
-    max-width: 800px;
-    color: #f0f0f0;
-    
+	min-height:100%;
+	width: 600px;
+	margin: 0 auto;
+	color: #f0f0f0;
+	border:0px solid red;
 }
 
 h1 {
-    text-align: center;
-    margin: 0px;
+	text-align: center;
+	margin: 0px;
 }
 
 h2 {
-    text-align: center;
-    margin: 0px;
+	text-align: center;
+	margin: 0px;
 }
 
 #timer {
-    position: absolute;
-    top: 10px;
-    right: 50px;
+    color: red;
+	position: absolute;
+	top: 10px;
+	right: 50px;
 }
 
 #output {
-    width:75%;
-    color: #000;
-    height: 200px;
-    max-height: 200px;
-    overflow: auto;
-    border: 1px solid #c0c0c0;
-    margin: 0 auto;
-    padding: 0px 10px 10px 10px;
-    background-color: #f0f0f0;
-    border-radius: 7px;
+	width:90%;
+	color: #000;
+	height: 200px;
+	max-height: 200px;
+	overflow: auto;
+	border: 1px solid #c0c0c0;
+	margin: 10px auto;
+	padding: 0px 10px 10px 10px;
+	background-color: #f0f0f0;
+	border-radius: 7px;
+	clear:both;
+}
+
+#input {
+	width:90%;
+	margin: 0px auto;
 }
 
 #commands {
-    text-align: left;
-    width: 50%;
-    margin: 10px 0px 10px 12%;
+	text-align: left;
+	width: 50%;
+	margin: 0px 5px 0px 0px;
 }
 
-#inventory {
+#helpBtn {
+	margin: 0px 0px 0px 5px;
+    float: right;
+    color: #b0b0b0;
+    font-size: .8em;
+}
+
+.column {
     float: left;
+    width: 50%;
     text-align: center;
-    width: 33%;
-    margin: 10px auto;
 }
 
 #help {
-    float: left;
-    width: 33%;
-    text-align: center;
-    margin: 10px auto;
+	position: absolute;
+	top: 10%;
+    right: -300px;
+    width: 20%;
+	text-align: left;
+    background-color: #000;
+    font-size: .8em;
+    color: #b0b0b0;
+    padding: 4px;
+    padding-left: 7px;
+    border-radius: 3px 0px 0px 3px;
+    border-top: 1px solid #FFF;
+    border-left: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
 }
 
-#location {
-    float: left;
-    width: 33%;
-    text-align: center;
-    margin: 10px auto;
+.help_slide {
+    right: 0px !important;
 }
 
 .active {
-    color: red;
+	color: red;
 }

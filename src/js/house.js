@@ -1,5 +1,5 @@
 var house = {
-    
+
     kitchen:{
         name: "Kitchen",
         description: "The smell of rotten milk and eggs is overwhelming.",
@@ -18,9 +18,9 @@ var house = {
             name: "sliding door",
             item: ""
         },
-        items: ["wine bottle", "knife"]
+        items: []
     },
-    
+
     garage:{
         name: "Garage",
         description: "The garage is dimly lit and smells of oil and saw dust.",
@@ -39,12 +39,12 @@ var house = {
             name: "garage door",
             item: ""
         },
-        items: ["chainsaw", "fireworks", "hedge clippers"]
+        items: []
     },
-    
+
     bedroom:{
         name: "Bedroom",
-        description: "The bed is thrown across the room and the vanity mirror reflects light on the ceiling",
+        description: "The bed is thrown across the room and the vanity mirror reflects light on the ceiling.",
         exit: 0,
         direction: "west",
         visits: 0,
@@ -60,9 +60,9 @@ var house = {
             name: "window",
             item: ""
         },
-        items: ["gym socks", "marbles", "pocket knife"]
+        items: []
     },
-    
+
     bathroom:{
         name: "Bathroom",
         description: "The medicine cabinet has been torn off the shelves and some of the drawers are still open",
@@ -81,7 +81,6 @@ var house = {
             name: "skylight",
             item: ""
         },
-        items: ["toilet seat", "plunger", "curling iron"]
+        items: []
     }
-
 };

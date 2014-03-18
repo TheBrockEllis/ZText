@@ -1,45 +1,53 @@
 <!DOCTYPE html>
-<HTML>
-<HEAD>
-  <title>Z Text</title>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="vendor/flipclock/css/flipclock.css" />
-  <link rel="stylesheet" href="src/css/main.css" />
-</HEAD>
-<BODY>
-  <div id="timer"></div>
+<html>
+<head>
+	<title>Z Text</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="src/css/main.css" />
+</head>
 
-  <h1>Z Text</h1>
-  <h2>A text-based zombie survival game</h2>
-  
-  <div style="clear:both;"></div>
-  
-  <div id="output" name="output"></div>
-  <input type="text" name="commands" id="commands" placeholder="What are you going to do?" />
-  <button id="enter">Enter</button>
-  
-  <div style="clear:both;"></div>
-  
-  <div id="inventory">
-    Inventory
-    <ul></ul>
-  </div>
-  
-  <div id="help">grab, move, set, use, combine, look, examine</div>
-  
-  <div id="location">
-    Current Location: <span></span>
-    <!--insert image of house -->
-  </div>
-  
-  <script src="vendor/jquery.min.js"></script>
-  <script src="vendor/jquery.shuffle.js"></script>
-  <script src="vendor/jquery.countdown.min.js"></script>
-  <script src="src/js/house.js"></script>
-  <script src="src/js/zombie.js"></script>
-  <script src="src/js/survivor.js"></script>
-  <script src="src/js/items.js"></script>
-  <script src="src/js/commands.js"></script>
-  
-</BODY>
-</HTML>
+<body>
+	<div id="timer"></div>
+
+	<h1>Z Text</h1>
+	<h2>A text-based zombie survival game</h2>
+
+	<div id="output"></div>
+	<div id="input">
+        <input id="commands" type="text" placeholder="What are you going to do?" />
+		<button id="enter">Enter</button>
+		<a href="#" alt="Toggle help text" id="helpBtn">Toggle Help</a>
+	</div>
+
+	<div id="inventory" class="column">
+		<p><b>Inventory</b></p>
+		<ul></ul>
+	</div>
+
+	<div id="location" class="column">
+		<p><b>Current Location: </b><span></span></p>
+		<!--insert image of house -->
+	</div>
+
+	<!--shows what all the commands do-->
+	<div id="help">
+		<p><b>Grab __:</b> Places an item in the room into your inventory</p>
+		<p><b>Move to __:</b> Used to move to an adjoining room</p>
+		<p><b>Set __:</b> Sets an item in a defensive position in the room you're in</p>
+		<p><b>Use __:</b> Wields an item in one of your two hands</p>
+		<p><b>Combine __ and __ :</b> Combines two items to create a powerful new item</p>
+		<p><b>Look : </b> Looks around the room and gives a description</p>
+		<p><b>Examine __ :</b> Gives a detailed description of an item</p>
+	</div>
+
+	<script src="vendor/jquery.min.js"></script>
+	<script src="vendor/jquery.shuffle.js"></script>
+	<script src="src/js/house.js"></script>
+	<script src="src/js/zombie.js"></script>
+	<script src="src/js/survivor.js"></script>
+	<script src="src/js/items.js"></script>
+	<script src="src/js/commands.js"></script>
+	<script src="src/js/init.js"></script>
+</body>
+
+</html>
