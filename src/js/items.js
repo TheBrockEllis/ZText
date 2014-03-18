@@ -37,13 +37,13 @@ var items = {
     "grill fork":{
         description: "A rusty, bent grill fork stands erect, jammed in a crack in the counter.",
 		hint: "The grill fork is slightly bent, but could be used as a handle for another item...or on a handle.",
-        score: 2,
+        score: 7,
 		discovered: 0
     },
     "broom":{
         description: "A plastic broom with a long handle rests curiously in the middle of the floor.",
 		hint: "IT IS A BROOM",
-        score: 0,
+        score: 4,
 		discovered: 0
     },
     "frying pan":{

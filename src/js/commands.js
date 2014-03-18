@@ -1,4 +1,4 @@
-var commands = ["grab", "move", "set", "use", "combine", "look", "examine"];
+var commands = ["grab", "move", "set", "use", "combine", "look", "examine", "prepare"];
 
 $("#commands").keypress(function(e) {
 
@@ -52,6 +52,11 @@ $("#commands").keypress(function(e) {
 					examine(command_array);
 					break;
 
+                //BROCK
+				case "prepare":
+					prepare(command_array);
+					break;
+
 			}
 
 		}else{
@@ -64,10 +69,23 @@ $("#commands").keypress(function(e) {
 	}
 });
 
+function wait(ms) {
+    var start = +(new Date());
+    while (new Date() - start < ms);
+}
+
 function result(text){
 	var elm = $('#output');
 	elm.children("p").removeClass("active");
 	elm.append("<p class='active'>"+text+"</p>");
+	elm.scrollTop(elm.prop("scrollHeight"));
+}
+
+function attack_result(text){
+	var elm = $('#output');
+	elm.children("p").removeClass("active");
+    var html = "<p class='active' style='display:none;'>"+text+"</p>";
+	$(html).hide().appendTo(elm).fadeIn(2000);
 	elm.scrollTop(elm.prop("scrollHeight"));
 }
 
@@ -267,7 +285,7 @@ function combine(command) {
 
 function move(command){
 	//where are you trying to go
-	var destination = command[1];
+	var destination = command[2];
 
 	//can you move there
 	if ( $.inArray(destination, house[survivor.location].nextTo) !== -1 ){
@@ -278,6 +296,29 @@ function move(command){
 		result("You cannot move to that room directly from the room you're in.");
 	}
 }//end move
+
+function prepare(command){
+	//where are you trying to go
+	var item = command[1];
+
+    //does the item have more than one word?
+	if(command[2]) {
+		item +=  " " + command[2];
+	}
+
+    //do you have this item
+	if ( $.inArray(item, survivor.inventory) !== -1 ){
+		//yes you can prepare that item
+
+        updateInventory(item);
+
+        house[survivor.location].items.push(item);
+        items[item].discovered = 1;
+		result("You set up the " + item + " so that it's easy to use when the attack comes.");
+	}else{
+		result("You fumble around and cannot find the " +item+ ".");
+	}
+}//end prepare
 
 function look(command){
 	//do we have a description for the room you're in?
@@ -296,6 +337,13 @@ function look(command){
 			items_desc += " " + items[tmp_item].description;
 		}
 
+        var exit_desc = "";
+        //give a hint as to whether or not this is a good exit or not
+        if(house[survivor.location].exit === 1) {
+            exit_desc = "This would be a great location to try and esacpe if things get out of hand."
+        }
+
+        //give a description of the strength of zombies coming at that room
 		var direction = house[survivor.location].direction;
 
 		var hoarde = zombies.filter(function (obj) {
@@ -311,13 +359,35 @@ function look(command){
 			hoarde_desc = zombie_strength.high;
 		}
 
-		result(room_desc + " " + items_desc + " " + hoarde_desc);
+		result(room_desc + " " + items_desc + " " + exit_desc + " " + hoarde_desc);
 	}else{
 		result("You're eyes well up with tears as you realize you're about to die...");
 	}
 } //end look
 
-//BEGIN THE ATTACK!!
+function examine(command) {
+	var item = command[1];
+
+	if(command[2]) {
+		item +=  " " + command[2];
+	}
+
+    if ( $.inArray(item, house[survivor.location].items) !== -1 ){
+
+	   // var items_array = house[survivor.location].items
+		var item_examine = items[item].hint;
+
+		console.log(item_examine);
+
+		result(item_examine);
+    } else {
+        result("Item isn't here!");
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+///   BEGIN THE ATTACK!!
+///////////////////////////////////////////////////////////////////////////////
 function attack(){
 	$("#commands").prop("disabled", "disabled");
 
@@ -327,79 +397,97 @@ function attack(){
 	if(survivor.location === exit_room){
 		//you are in the exit room!
 		if( skirmish(exit_room) ){
-			result("You WIN!");
+            victory();
 		}else{
-			result("You lose!");
+            defeat();
 		}
 	}else if (  $.inArray(exit_room, house[survivor.location].nextTo !== -1) ) {
 		//you're in the room that is next to the exit!
-		result("You're next to the exit!");
-	}else{
-		//you must travel the house to get to the exit!
-		result("You're far away from the room!");
+		if( skirmish(survivor.location) ) {
+            if( skirmish(exit_room) ) victory();
+            else defeat();
+        }else{
+            defeat();
+        }
+    }else{
+        if( skirmish(survivor.location) ) {
+            if( skirmish("kitchen") ){
+                if( skirmish(exit_room) ) victory();
+                else defeat();
+            }else{
+                defeat();
+            }
+        }else{
+            defeat();
+        }
 	}
-
-}
+} //end attack()
 
 //deal with battles
 //pass it a room and it will calculate whether the survivor lives or dies
 //will return false on death, true on survival
 function skirmish(room) {
-	var direction = house[room].direction;
-	var hoarde = zombies.filter(function (obj) {
-		  return obj.direction === direction;
-		})[0];
+	var direction = house[room].direction,
+        hoarde = zombies.filter(function (obj) {
+            return obj.direction === direction;
+        })[0];
 
 	console.log("Initial Zombie Threat: " + hoarde.threat);
-	result("You hear the zombies directly outside the window. They're coming for you.");
+	attack_result("You hear the zombies directly outside the window. They're coming for you.");
 
 	var defensive_item = house[room].defense.item;
 	if(defensive_item){
 		var defensive_item_score = items[defensive_item].score;
 		console.log("D Item: " + defensive_item + " with a score of " + defensive_item_score);
-		console.log("Zombie strenght: " + hoarde.threat);
-		hoarde.threat -= house[room].defense.item;
-		result("The defensive item you placed damaged the zombies!");
+		hoarde.threat = hoarde.threat - items[defensive_item].score;
+        console.log("Zombie strength after D item: " + hoarde.threat);
+		attack_result("The " + defensive_item + " you placed in the defensive position damaged the zombies!");
 	}//end defensive item
 
-	console.log("Zombie threat after defensive item " + hoarde.threat);
 	if (hoarde.threat > 0) {
 		//zombie are still alive!
 
 		//use all the items in the room that hae been discovered
-		var weapons = [];
-		var room_items = house[room].items;
-		for(var i=0; i < room_items.length; i++){
+		var weapons = [],
+            room_items = house[room].items,
+            room_items_length = room_items.length; console.log("NO. of room items: " + room_items_length);
+
+		for(var i=0; i < room_items_length; i++){
 			var room_item = room_items[i];
-			if ( items[room_item].discovered ) {
-				weapons.push = room_item;
+			if ( items[room_item].discovered === 1) {
+				weapons.push(room_item);
 			}
 		}
 
 		//start doing the math for those items
-		for(var i=0; i < weapons.length; i++){
+		var weapons_length = weapons.length; console.log("NO. of weapons: " + weapons_length);
+        for(var i=0; i < weapons_length; i++){
 			var weapon = weapons[i];
 			var damage = items[weapon].score;
 			hoarde.threat -= damage;
-			result("You hit the zombies with " + weapon + "!");
+			attack_result("You hit the zombies with " + weapon + " for " + damage + " damage!");
 		}
 
-		console.log("Zombie threate after room items: " + hoarde.threat);
+		console.log("Zombie threate after room weapons: " + hoarde.threat);
 		//zombies still alive? Use your personal items
 		if (hoarde.threat > 0) {
-			if(survivor.hand1) {
-				var hand1_score = items[survivor.hand1].score;
-				hoarde.threat -= hand1_score;
-				//TO DO - remove item from survivor object
+			if(survivor.hand.length > 0) {
+                var first_hand = survivor.hand[0]; console.log("You use your " + first_hand);
+				var hand_score = items[first_hand].score;
+				hoarde.threat -= hand_score;
+                survivor.hand.shift();
+                attack_result("You use the " + first_hand + " in your hand for " + hand_score + " damage!");
 			}
 
 			console.log("Zombie threat after 1st hand weapon: " + hoarde.threat);
 			if (hoarde.threat > 0) {
 				//STILL MORE ZOMBIES! use second personal weapon
-				if(survivor.hand1){
-					var hand2_score = items[survivor.hand2].score;
-					hoarde.threat -= hand2_score;
-					//TO DO - remove item fro survivor object
+				if(survivor.hand.length > 0){
+					var second_hand = survivor.hand[0]; console.log("You use your " + second_hand);
+                    var hand_score = items[second_hand].score;
+					hoarde.threat -= hand_score;
+                    survivor.hand.shift();
+                    attack_result("You use the " + second_hand + " in your hand for " + hand_score + " damage!");
 				}
 
 				console.log("Zombie threat after 2nd hand weapon: " + hoarde.threat);
@@ -407,45 +495,29 @@ function skirmish(room) {
 					//YOU DIED!
 					return false;
 				}else{
-					return("You bashed the zombies with your " + survivor.hand2 + ".");
 					return true;
 				}
 
 			}else{
-				return("You bashed the zombies with your " + survivor.hand1 + ".");
 				return true;
 			}
 
 		}else{
-			return("You bashed the zombies with your " + survivor.hand1 + ".");
 			return true;
 		}
 	}else{
 		//you defeated the zombies!
-		result("You defeated the zombies!");
 		return true;
 	}
 
 }//end skirmish
 
+//should spruce the victory and defeate functions up justa bit
 
-function examine(command) {
-				var item = command[1];
+function victory() {
+    attack_result("You slither away from a zombies grasp and bound out an open doorway. You run as fast as you can and don't even think of looking about. You've survived for today.");
+}
 
-	if(command[2]) {
-		item +=  " " + command[2];
-	}
-
-if ( $.inArray(item, house[survivor.location].items) !== -1 ){
-
-	   // var items_array = house[survivor.location].items
-		var item_examine = items[item].hint;
-
-
-
-		console.log(item_examine);
-
-		result(item_examine);
-} else { result("Item isn't here!");
-	}
+function defeat() {
+    attack_result("You dive for the open window but a zombie grabs your leg and sinks its teeth into your calf. You feel the blood run down your feet and the room starts to go dark. You're oddly at peace and feel like you're going home...");
 }

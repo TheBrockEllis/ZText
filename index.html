@@ -14,9 +14,9 @@
 
 	<div id="output"></div>
 	<div id="input">
-		<input id="commands" type="text" placeholder="What are you going to do?" />
+        <input id="commands" type="text" placeholder="What are you going to do?" />
 		<button id="enter">Enter</button>
-		<button id="helpBtn">Toggle Commands</button>
+		<a href="#" alt="Toggle help text" id="helpBtn">Toggle Help</a>
 	</div>
 
 	<div id="inventory" class="column">
@@ -27,18 +27,17 @@
 	<div id="location" class="column">
 		<p><b>Current Location: </b><span></span></p>
 		<!--insert image of house -->
-		<p id="helptext"></p>
 	</div>
 
 	<!--shows what all the commands do-->
-	<div id="help" class="column">
-		<p><b>Grab:</b> Places an item in inventory.</p>
-		<p><b>Move:</b> Moves you to an adjoining room.</p>
-		<p><b>Set:</b> Sets an item in a defensive position.</p>
-		<p><b>Use:</b> Wields an item.</p>
-		<p><b>Combine...and:</b> Combines two items to create a new item.</p>
-		<p><b>Look:</b> Looks around the room and gives a description.</p>
-		<p><b>Examine:</b> Examines an item and gives a detailed description.</p>
+	<div id="help">
+		<p><b>Grab __:</b> Places an item in the room into your inventory</p>
+		<p><b>Move to __:</b> Used to move to an adjoining room</p>
+		<p><b>Set __:</b> Sets an item in a defensive position in the room you're in</p>
+		<p><b>Use __:</b> Wields an item in one of your two hands</p>
+		<p><b>Combine __ and __ :</b> Combines two items to create a powerful new item</p>
+		<p><b>Look : </b> Looks around the room and gives a description</p>
+		<p><b>Examine __ :</b> Gives a detailed description of an item</p>
 	</div>
 
 	<script src="vendor/jquery.min.js"></script>

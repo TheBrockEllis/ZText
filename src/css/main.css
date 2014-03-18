@@ -1,12 +1,12 @@
 html {
 	/* This image will be displayed fullscreen */
 	background:url('../img/background.jpg') no-repeat center center;
-
 	/* Ensure the html element always takes up the full height of the browser window */
 	min-height:100%;
-
 	/* The Magic */
 	background-size:cover;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -28,6 +28,7 @@ h2 {
 }
 
 #timer {
+    color: red;
 	position: absolute;
 	top: 10px;
 	right: 50px;
@@ -60,12 +61,36 @@ h2 {
 
 #helpBtn {
 	margin: 0px 0px 0px 5px;
+    float: right;
+    color: #b0b0b0;
+    font-size: .8em;
 }
 
 .column {
-	float: left;
-	width: 33%;
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+#help {
+	position: absolute;
+	top: 10%;
+    right: -300px;
+    width: 20%;
 	text-align: left;
+    background-color: #000;
+    font-size: .8em;
+    color: #b0b0b0;
+    padding: 4px;
+    padding-left: 7px;
+    border-radius: 3px 0px 0px 3px;
+    border-top: 1px solid #FFF;
+    border-left: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
+}
+
+.help_slide {
+    right: 0px !important;
 }
 
 .active {
