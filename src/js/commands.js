@@ -6,7 +6,8 @@ var commands = [
     "combine", 
     "look", 
     "examine", 
-    "prepare"
+    "prepare",
+    "help"
 ];
 
 $("#commands").keypress(function(e) {
@@ -19,35 +20,31 @@ $("#commands").keypress(function(e) {
 			switch (command_array[0]) {
 				case "grab":
 					grab(command_array);
-					break;
-
+				break;
 				case "move":
 					move(command_array);
-					break;
-
+				break;
 				case "set":
 					set(command_array);
-					break;
-
+				break;
 				case "use":
-					use(command_array);
-					break;
-
+				    use(command_array);
+				break;
 				case "combine":
 					combine(command_array);
-					break;
-
+			    break;
 				case "look":
 					look(command_array);
-					break;
-
+			    break;
 				case "examine":
-					examine(command_array);
-					break;
-
+			        examine(command_array);
+				break;
 				case "prepare":
 					prepare(command_array);
-					break;
+		        break;
+                case "help":
+                    help(command_array);
+                break;
 			}
 
 		} else {
@@ -371,6 +368,17 @@ function examine(command) {
     } else {
         result("Item isn't here!");
 	}
+}
+
+function help() {
+  var text = "Grab __: Places an item in the room into your inventory<br>" +
+             "Move to __: Used to move to an adjoining room<br>" +
+             "Set __: Sets an item in a defensive position in the room you're in<br>" +
+             "Use __: Wields an item in one of your two hands<br>" +
+             "Combine __ and __ : Combines two items to create a powerful new item<br>" +
+             "Look : Looks around the room and gives a description<br>" +
+             "Examine __ : Gives a detailed description of an item<br>";
+  result(text);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
